@@ -42,7 +42,7 @@ func (app *AppService) AddApplication(appName, descript, smsSignCode, smsLoginTe
 	}
 	appInfo, err = mysql.InsertAppInfo(appInfo)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
 	if tokenTtl == 0 {
 		//默认token有效期为10天
@@ -75,29 +75,29 @@ func (app *AppService) AddApplication(appName, descript, smsSignCode, smsLoginTe
 	}
 	_, err = mongo.InsertAppSettings(appSettings)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
-	return *mgresult.Success(appInfo)
+	return mgresult.Success(appInfo)
 }
 
 func (app *AppService) GetAppInfo(appId string) mgresult.Result {
 	appInfo, err := mysql.GetAppInfoByAppId(appId)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
 	if appInfo.AppId == "" {
-		return *mgresult.Error(-1, "应用编号错误")
+		return mgresult.Error(-1, "应用编号错误")
 	}
-	return *mgresult.Success(appInfo)
+	return mgresult.Success(appInfo)
 }
 
 func (app *AppService) UpdateAppInfo(appId, appName, descript string) mgresult.Result {
 	appInfo, err := mysql.GetAppInfoByAppId(appId)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
 	if appInfo.AppId == "" {
-		return *mgresult.Error(-1, "应用编号错误")
+		return mgresult.Error(-1, "应用编号错误")
 	}
 	if appName != "" {
 		appInfo.AppName = appName
@@ -107,48 +107,48 @@ func (app *AppService) UpdateAppInfo(appId, appName, descript string) mgresult.R
 	}
 	err = mysql.UpdateAppInfo(appInfo)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
-	return *mgresult.Success(appInfo)
+	return mgresult.Success(appInfo)
 }
 
 func (app *AppService) ResetAppKey(appId, appKey string) mgresult.Result {
 	appInfo, err := mysql.GetAppInfoByAppId(appId)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
 	if appInfo.AppId == "" {
-		return *mgresult.Error(-1, "应用编号错误")
+		return mgresult.Error(-1, "应用编号错误")
 	}
 	if appInfo.AppKey != appKey {
-		return *mgresult.Error(-1, "原应用密钥验证错误")
+		return mgresult.Error(-1, "原应用密钥验证错误")
 	}
 	appInfo.AppKey = utils.GetRandomCaseString(32)
 	err = mysql.UpdateAppInfo(appInfo)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
-	return *mgresult.Success(appInfo)
+	return mgresult.Success(appInfo)
 }
 
 func (app *AppService) GetAppSettings(appId string) mgresult.Result {
 	appSettings, err := mongo.GetAppSettings(appId)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
 	if appSettings.AppId == "" {
-		return *mgresult.Error(-1, "应用编号错误")
+		return mgresult.Error(-1, "应用编号错误")
 	}
-	return *mgresult.Success(appSettings)
+	return mgresult.Success(appSettings)
 }
 
 func (app *AppService) UpdateAppSettings(appId, smsSignCode, smsLoginTemplate, smsRegisterTemplate string, tokenTtl, maxOnline int, termTypes []int, verifySign int) mgresult.Result {
 	appSettings, err := mongo.GetAppSettings(appId)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
 	if appSettings.AppId == "" {
-		return *mgresult.Error(-1, "应用编号错误")
+		return mgresult.Error(-1, "应用编号错误")
 	}
 	if tokenTtl != 0 {
 		appSettings.TokenTtl = tokenTtl
@@ -173,31 +173,31 @@ func (app *AppService) UpdateAppSettings(appId, smsSignCode, smsLoginTemplate, s
 	}
 	err = mongo.UpdateAppSettings(appSettings)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
-	return *mgresult.Success(appSettings)
+	return mgresult.Success(appSettings)
 }
 
 func (app *AppService) SetAppKickRule(appId string, kickRule int, termTypes []int, termTypeGroups []string) mgresult.Result {
 	appInfo, err := mysql.GetAppInfoByAppId(appId)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
 	if appInfo.AppId == "" {
-		return *mgresult.Error(-1, "应用编号错误")
+		return mgresult.Error(-1, "应用编号错误")
 	}
 	if kickRule <= 0 || kickRule > constant.ONLY_ONE_WITHIN_TERMTYPE_GROUPS {
-		return *mgresult.Error(-1, "互踢类型错误")
+		return mgresult.Error(-1, "互踢类型错误")
 	}
 	if (kickRule == constant.ONLY_ONE_WITHIN_TERMTYPES || kickRule == constant.ONLY_ONE_WITHOUT_TERMTYPES) && (termTypes == nil || len(termTypes) == 0) {
-		return *mgresult.Error(-1, "互踢终端类型列表不可为空")
+		return mgresult.Error(-1, "互踢终端类型列表不可为空")
 	}
 	if kickRule == constant.ONLY_ONE_WITHIN_TERMTYPE_GROUPS {
 		if termTypeGroups == nil || len(termTypeGroups) == 0 {
-			return *mgresult.Error(-1, "互踢组列表不可为空")
+			return mgresult.Error(-1, "互踢组列表不可为空")
 		}
 		if !redis.IsAppTermTypeGroup(appId, termTypeGroups) {
-			return *mgresult.Error(-1, "互踢组的编号错误")
+			return mgresult.Error(-1, "互踢组的编号错误")
 		}
 	}
 	appKickRule := model.AppKickRule{
@@ -208,24 +208,24 @@ func (app *AppService) SetAppKickRule(appId string, kickRule int, termTypes []in
 	}
 	err = redis.SetAppKickRule(appKickRule)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
-	return *mgresult.Success(appKickRule)
+	return mgresult.Success(appKickRule)
 }
 
 func (app *AppService) SetTermTypeGroup(appId, groupName string, termTypes []int) mgresult.Result {
 	appInfo, err := mysql.GetAppInfoByAppId(appId)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
 	if appInfo.AppId == "" {
-		return *mgresult.Error(-1, "应用编号错误")
+		return mgresult.Error(-1, "应用编号错误")
 	}
 	if termTypes == nil || len(termTypes) == 0 {
-		return *mgresult.Error(-1, "互踢组终端类型列表不可为空")
+		return mgresult.Error(-1, "互踢组终端类型列表不可为空")
 	}
 	if groupName == "" {
-		return *mgresult.Error(-1, "互踢组名称不可为空")
+		return mgresult.Error(-1, "互踢组名称不可为空")
 	}
 	termTypeGroup := model.TermTypeGroup{
 		GroupName: groupName,
@@ -233,40 +233,40 @@ func (app *AppService) SetTermTypeGroup(appId, groupName string, termTypes []int
 	}
 	termTypeGroup, err = redis.SetTermTypeGroup(appId, termTypeGroup)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
-	return *mgresult.Success(termTypeGroup)
+	return mgresult.Success(termTypeGroup)
 }
 
 func (app *AppService) DeleteTermTypeGroup(appId, termTypeGroup string) mgresult.Result {
 	appInfo, err := mysql.GetAppInfoByAppId(appId)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
 	if appInfo.AppId == "" {
-		return *mgresult.Error(-1, "应用编号错误")
+		return mgresult.Error(-1, "应用编号错误")
 	}
 	if termTypeGroup == "" {
-		return *mgresult.Error(-1, "互踢组ID不可为空")
+		return mgresult.Error(-1, "互踢组ID不可为空")
 	}
 	err = redis.DelTermTypeGroup(appId, termTypeGroup)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
-	return *mgresult.Success(nil)
+	return mgresult.Success(nil)
 }
 
 func (app *AppService) ListAppTermTypeGroups(appId string) mgresult.Result {
 	appInfo, err := mysql.GetAppInfoByAppId(appId)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
 	if appInfo.AppId == "" {
-		return *mgresult.Error(-1, "应用编号错误")
+		return mgresult.Error(-1, "应用编号错误")
 	}
 	termTypeGroups, err := redis.ListAppTermTypeGroups(appId)
 	if err != nil {
-		return *mgresult.Error(-1, err.Error())
+		return mgresult.Error(-1, err.Error())
 	}
-	return *mgresult.Success(termTypeGroups)
+	return mgresult.Success(termTypeGroups)
 }

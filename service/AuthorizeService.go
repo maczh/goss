@@ -12,13 +12,13 @@ import (
 
 func (us *UserService) Authenticate(token, appId string, termType int) mgresult.Result {
 	if token == "" {
-		return *mgresult.Error(-1, "令牌不可为空")
+		return mgresult.Error(-1, "令牌不可为空")
 	}
 	if appId == "" {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	if termType == 0 {
-		return *mgresult.Error(-1, "终端类型错误")
+		return mgresult.Error(-1, "终端类型错误")
 	}
 	userId, online, err, invalidLog := logic.VerifyToken(token, appId, termType)
 	validResult := response.TokenVerify{
@@ -36,18 +36,18 @@ func (us *UserService) Authenticate(token, appId string, termType int) mgresult.
 		if appSettings.AppId == appId {
 			redis.PostponeToken(token, time.Duration(appSettings.TokenTtl)*time.Minute)
 		}
-		return *mgresult.Success(validResult)
+		return mgresult.Success(validResult)
 	}
 	if err != nil {
 		validResult.Status = 2
 		validResult.Message = err.Error()
-		return *mgresult.Success(validResult)
+		return mgresult.Success(validResult)
 	}
 	if invalidLog.Token != "" {
 		validResult.Status = 3
 		validResult.Message = invalidLog.InvalidInfo.Message
 		validResult.InvalidType = invalidLog.InvalidInfo.InvalidType
-		return *mgresult.Success(validResult)
+		return mgresult.Success(validResult)
 	}
-	return *mgresult.Error(-1, err.Error())
+	return mgresult.Error(-1, err.Error())
 }

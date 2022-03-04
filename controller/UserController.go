@@ -45,25 +45,25 @@ func SendRegisterSms(params map[string]string) mgresult.Result {
 // @Router	/register/sms/confirm [post][get]
 func RegisterBySmsCode(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "mobile") || params["mobile"] == "" {
-		return *mgresult.Error(-1, "手机号不可为空")
+		return mgresult.Error(-1, "手机号不可为空")
 	}
 	if !utils.Exists(params, "smsCode") || params["smsCode"] == "" {
-		return *mgresult.Error(-1, "短信验证码不可为空")
+		return mgresult.Error(-1, "短信验证码不可为空")
 	}
 	if !utils.Exists(params, "appId") || params["appId"] == "" {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	if !utils.Exists(params, "userIp") || params["userIp"] == "" {
-		return *mgresult.Error(-1, "用户IP不可为空")
+		return mgresult.Error(-1, "用户IP不可为空")
 	}
 	if !utils.Exists(params, "userAgent") || params["userAgent"] == "" {
-		return *mgresult.Error(-1, "客户端信息不可为空")
+		return mgresult.Error(-1, "客户端信息不可为空")
 	}
 	if !utils.Exists(params, "deviceInfo") || params["deviceInfo"] == "" {
-		return *mgresult.Error(-1, "终端设备信息不可为空")
+		return mgresult.Error(-1, "终端设备信息不可为空")
 	}
 	if !utils.Exists(params, "termType") {
-		return *mgresult.Error(-1, "终端类型必传")
+		return mgresult.Error(-1, "终端类型必传")
 	}
 	termType, _ := strconv.Atoi(params["termType"])
 	return service.NewUserService().RegisterBySmsCode(params["mobile"], params["smsCode"], params["userName"], params["email"], params["image"], params["descript"], params["appId"], params["deviceId"], params["userIp"], params["userAgent"], params["deviceInfo"], termType)
@@ -92,25 +92,25 @@ func RegisterBySmsCode(params map[string]string) mgresult.Result {
 // @Router	/register/pwd [post][get]
 func RegisterByPassword(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "mobile") || params["mobile"] == "" {
-		return *mgresult.Error(-1, "手机号不可为空")
+		return mgresult.Error(-1, "手机号不可为空")
 	}
 	if !utils.Exists(params, "password") || params["password"] == "" {
-		return *mgresult.Error(-1, "密码不可为空")
+		return mgresult.Error(-1, "密码不可为空")
 	}
 	if !utils.Exists(params, "appId") || params["appId"] == "" {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	if !utils.Exists(params, "userIp") || params["userIp"] == "" {
-		return *mgresult.Error(-1, "用户IP不可为空")
+		return mgresult.Error(-1, "用户IP不可为空")
 	}
 	if !utils.Exists(params, "userAgent") || params["userAgent"] == "" {
-		return *mgresult.Error(-1, "客户端信息不可为空")
+		return mgresult.Error(-1, "客户端信息不可为空")
 	}
 	if !utils.Exists(params, "deviceInfo") || params["deviceInfo"] == "" {
-		return *mgresult.Error(-1, "终端设备信息不可为空")
+		return mgresult.Error(-1, "终端设备信息不可为空")
 	}
 	if !utils.Exists(params, "termType") {
-		return *mgresult.Error(-1, "终端类型必传")
+		return mgresult.Error(-1, "终端类型必传")
 	}
 	termType, _ := strconv.Atoi(params["termType"])
 	return service.NewUserService().RegisterByPassword(params["mobile"], params["password"], params["userName"], params["email"], params["image"], params["descript"], params["appId"], params["deviceId"], params["userIp"], params["userAgent"], params["deviceInfo"], termType)
@@ -150,25 +150,25 @@ func SendLoginSms(params map[string]string) mgresult.Result {
 // @Router	/login/sms/confirm [post][get]
 func LoginBySmsCode(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "mobile") || params["mobile"] == "" {
-		return *mgresult.Error(-1, "手机号不可为空")
+		return mgresult.Error(-1, "手机号不可为空")
 	}
 	if !utils.Exists(params, "smsCode") || params["smsCode"] == "" {
-		return *mgresult.Error(-1, "短信验证码不可为空")
+		return mgresult.Error(-1, "短信验证码不可为空")
 	}
 	if !utils.Exists(params, "appId") || params["appId"] == "" {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	if !utils.Exists(params, "userIp") || params["userIp"] == "" {
-		return *mgresult.Error(-1, "用户IP不可为空")
+		return mgresult.Error(-1, "用户IP不可为空")
 	}
 	if !utils.Exists(params, "userAgent") || params["userAgent"] == "" {
-		return *mgresult.Error(-1, "客户端信息不可为空")
+		return mgresult.Error(-1, "客户端信息不可为空")
 	}
 	if !utils.Exists(params, "deviceInfo") || params["deviceInfo"] == "" {
-		return *mgresult.Error(-1, "终端设备信息不可为空")
+		return mgresult.Error(-1, "终端设备信息不可为空")
 	}
 	if !utils.Exists(params, "termType") {
-		return *mgresult.Error(-1, "终端类型必传")
+		return mgresult.Error(-1, "终端类型必传")
 	}
 	termType, _ := strconv.Atoi(params["termType"])
 	return service.NewUserService().LoginBySmsCode(params["mobile"], params["smsCode"], params["appId"], params["deviceId"], params["userIp"], params["userAgent"], params["deviceInfo"], termType)
@@ -194,25 +194,25 @@ func LoginBySmsCode(params map[string]string) mgresult.Result {
 // @Router	/login/pwd [post][get]
 func LoginByPassword(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "mobile") || params["mobile"] == "" {
-		return *mgresult.Error(-1, "手机号不可为空")
+		return mgresult.Error(-1, "手机号不可为空")
 	}
 	if !utils.Exists(params, "password") || params["password"] == "" {
-		return *mgresult.Error(-1, "密码不可为空")
+		return mgresult.Error(-1, "密码不可为空")
 	}
 	if !utils.Exists(params, "appId") || params["appId"] == "" {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	if !utils.Exists(params, "userIp") || params["userIp"] == "" {
-		return *mgresult.Error(-1, "用户IP不可为空")
+		return mgresult.Error(-1, "用户IP不可为空")
 	}
 	if !utils.Exists(params, "userAgent") || params["userAgent"] == "" {
-		return *mgresult.Error(-1, "客户端信息不可为空")
+		return mgresult.Error(-1, "客户端信息不可为空")
 	}
 	if !utils.Exists(params, "deviceInfo") || params["deviceInfo"] == "" {
-		return *mgresult.Error(-1, "终端设备信息不可为空")
+		return mgresult.Error(-1, "终端设备信息不可为空")
 	}
 	if !utils.Exists(params, "termType") {
-		return *mgresult.Error(-1, "终端类型必传")
+		return mgresult.Error(-1, "终端类型必传")
 	}
 	termType, _ := strconv.Atoi(params["termType"])
 	return service.NewUserService().LoginByPassword(params["mobile"], params["password"], params["appId"], params["deviceId"], params["userIp"], params["userAgent"], params["deviceInfo"], termType)
@@ -248,13 +248,13 @@ func GetuserInfo(params map[string]string) mgresult.Result {
 // @Router	/user/status/update [post][get]
 func UpdateUserStatus(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "userId") || params["userId"] == "" {
-		return *mgresult.Error(-1, "用户编号不可为空")
+		return mgresult.Error(-1, "用户编号不可为空")
 	}
 	if !utils.Exists(params, "appId") || params["appId"] == "" {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	if !utils.Exists(params, "status") || params["status"] == "" {
-		return *mgresult.Error(-1, "状态值不可为空")
+		return mgresult.Error(-1, "状态值不可为空")
 	}
 	status, _ := strconv.Atoi(params["status"])
 	return service.NewUserService().UpdateUserStatus(params["userId"], params["appId"], status)
@@ -281,10 +281,10 @@ func UpdateUserStatus(params map[string]string) mgresult.Result {
 // @Router	/user/update [post][get]
 func UpdateUserInfo(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "userId") || params["userId"] == "" {
-		return *mgresult.Error(-1, "用户编号不可为空")
+		return mgresult.Error(-1, "用户编号不可为空")
 	}
 	if !utils.Exists(params, "token") || params["token"] == "" {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	return service.NewUserService().UpdateUserInfo(params["token"], params["userId"], params["userName"], params["mobile"], params["email"], params["image"], params["descript"], params["realName"], params["idCardNo"])
 }
@@ -303,10 +303,10 @@ func UpdateUserInfo(params map[string]string) mgresult.Result {
 // @Router	/login/finger/auth [post][get]
 func GetFingerPrintCode(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "userId") || params["userId"] == "" {
-		return *mgresult.Error(-1, "用户编号不可为空")
+		return mgresult.Error(-1, "用户编号不可为空")
 	}
 	if !utils.Exists(params, "token") || params["token"] == "" {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	return service.NewFingerPrintService().GetFingerPrintCode(params["userId"], params["token"])
 }
@@ -331,25 +331,25 @@ func GetFingerPrintCode(params map[string]string) mgresult.Result {
 // @Router	/login/finger [post][get]
 func LoginByFingerPrintCode(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "mobile") || params["mobile"] == "" {
-		return *mgresult.Error(-1, "手机号不可为空")
+		return mgresult.Error(-1, "手机号不可为空")
 	}
 	if !utils.Exists(params, "fingerPrintCode") || params["fingerPrintCode"] == "" {
-		return *mgresult.Error(-1, "指纹码不可为空")
+		return mgresult.Error(-1, "指纹码不可为空")
 	}
 	if !utils.Exists(params, "appId") || params["appId"] == "" {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	if !utils.Exists(params, "userIp") || params["userIp"] == "" {
-		return *mgresult.Error(-1, "用户IP不可为空")
+		return mgresult.Error(-1, "用户IP不可为空")
 	}
 	if !utils.Exists(params, "userAgent") || params["userAgent"] == "" {
-		return *mgresult.Error(-1, "客户端信息不可为空")
+		return mgresult.Error(-1, "客户端信息不可为空")
 	}
 	if !utils.Exists(params, "deviceInfo") || params["deviceInfo"] == "" {
-		return *mgresult.Error(-1, "终端设备信息不可为空")
+		return mgresult.Error(-1, "终端设备信息不可为空")
 	}
 	if !utils.Exists(params, "termType") {
-		return *mgresult.Error(-1, "终端类型必传")
+		return mgresult.Error(-1, "终端类型必传")
 	}
 	termType, _ := strconv.Atoi(params["termType"])
 	return service.NewFingerPrintService().LoginByFingerPrintCode(params["mobile"], params["fingerPrintCode"], params["appId"], params["deviceId"], params["userIp"], params["userAgent"], params["deviceInfo"], termType)
@@ -369,10 +369,10 @@ func LoginByFingerPrintCode(params map[string]string) mgresult.Result {
 // @Router	/login/faceid/auth [post][get]
 func GetFaceIdCode(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "userId") || params["userId"] == "" {
-		return *mgresult.Error(-1, "用户编号不可为空")
+		return mgresult.Error(-1, "用户编号不可为空")
 	}
 	if !utils.Exists(params, "token") || params["token"] == "" {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	return service.NewFaceIdService().GetFaceIdCode(params["userId"], params["token"])
 }
@@ -396,25 +396,25 @@ func GetFaceIdCode(params map[string]string) mgresult.Result {
 // @Router	/login/faceid [post][get]
 func LoginByFaceIdCode(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "mobile") || params["mobile"] == "" {
-		return *mgresult.Error(-1, "手机号不可为空")
+		return mgresult.Error(-1, "手机号不可为空")
 	}
 	if !utils.Exists(params, "faceIdCode") || params["faceIdCode"] == "" {
-		return *mgresult.Error(-1, "脸部识别码不可为空")
+		return mgresult.Error(-1, "脸部识别码不可为空")
 	}
 	if !utils.Exists(params, "appId") || params["appId"] == "" {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	if !utils.Exists(params, "userIp") || params["userIp"] == "" {
-		return *mgresult.Error(-1, "用户IP不可为空")
+		return mgresult.Error(-1, "用户IP不可为空")
 	}
 	if !utils.Exists(params, "userAgent") || params["userAgent"] == "" {
-		return *mgresult.Error(-1, "客户端信息不可为空")
+		return mgresult.Error(-1, "客户端信息不可为空")
 	}
 	if !utils.Exists(params, "deviceInfo") || params["deviceInfo"] == "" {
-		return *mgresult.Error(-1, "终端设备信息不可为空")
+		return mgresult.Error(-1, "终端设备信息不可为空")
 	}
 	if !utils.Exists(params, "termType") {
-		return *mgresult.Error(-1, "终端类型必传")
+		return mgresult.Error(-1, "终端类型必传")
 	}
 	termType, _ := strconv.Atoi(params["termType"])
 	return service.NewFaceIdService().LoginByFaceIdCode(params["mobile"], params["faceIdCode"], params["appId"], params["deviceId"], params["userIp"], params["userAgent"], params["deviceInfo"], termType)
@@ -438,22 +438,22 @@ func LoginByFaceIdCode(params map[string]string) mgresult.Result {
 // @Router	/login/mobile [post][get]
 func LoginByAliMobile(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "mobileToken") || params["mobileToken"] == "" {
-		return *mgresult.Error(-1, "一键登录token不可为空")
+		return mgresult.Error(-1, "一键登录token不可为空")
 	}
 	if !utils.Exists(params, "appId") || params["appId"] == "" {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	if !utils.Exists(params, "userIp") || params["userIp"] == "" {
-		return *mgresult.Error(-1, "用户IP不可为空")
+		return mgresult.Error(-1, "用户IP不可为空")
 	}
 	if !utils.Exists(params, "userAgent") || params["userAgent"] == "" {
-		return *mgresult.Error(-1, "客户端信息不可为空")
+		return mgresult.Error(-1, "客户端信息不可为空")
 	}
 	if !utils.Exists(params, "deviceInfo") || params["deviceInfo"] == "" {
-		return *mgresult.Error(-1, "终端设备信息不可为空")
+		return mgresult.Error(-1, "终端设备信息不可为空")
 	}
 	if !utils.Exists(params, "termType") {
-		return *mgresult.Error(-1, "终端类型必传")
+		return mgresult.Error(-1, "终端类型必传")
 	}
 	termType, _ := strconv.Atoi(params["termType"])
 	return service.NewUserService().LoginByAliMobile(params["mobileToken"], params["appId"], params["deviceId"], params["userIp"], params["userAgent"], params["deviceInfo"], termType)

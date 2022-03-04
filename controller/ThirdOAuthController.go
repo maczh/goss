@@ -26,25 +26,25 @@ import (
 // @Router	/login/oauth2 [post][get]
 func LoginThirdUser(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "platform") || params["platform"] == "" {
-		return *mgresult.Error(-1, "平台名称不可为空")
+		return mgresult.Error(-1, "平台名称不可为空")
 	}
 	if !utils.Exists(params, "thirdUserId") || params["thirdUserId"] == "" {
-		return *mgresult.Error(-1, "第三方用户编号不可为空")
+		return mgresult.Error(-1, "第三方用户编号不可为空")
 	}
 	if !utils.Exists(params, "appId") || params["appId"] == "" {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	if !utils.Exists(params, "userIp") || params["userIp"] == "" {
-		return *mgresult.Error(-1, "用户IP不可为空")
+		return mgresult.Error(-1, "用户IP不可为空")
 	}
 	if !utils.Exists(params, "userAgent") || params["userAgent"] == "" {
-		return *mgresult.Error(-1, "客户端信息不可为空")
+		return mgresult.Error(-1, "客户端信息不可为空")
 	}
 	if !utils.Exists(params, "deviceInfo") || params["deviceInfo"] == "" {
-		return *mgresult.Error(-1, "终端设备信息不可为空")
+		return mgresult.Error(-1, "终端设备信息不可为空")
 	}
 	if !utils.Exists(params, "termType") {
-		return *mgresult.Error(-1, "终端类型必传")
+		return mgresult.Error(-1, "终端类型必传")
 	}
 	termType, _ := strconv.Atoi(params["termType"])
 	return thirdpart.LoginThirdUser(params["platform"], params["thirdUserId"], params["appId"], params["deviceId"], params["userIp"], params["userAgent"], params["deviceInfo"], termType)
@@ -72,10 +72,10 @@ func LoginThirdUser(params map[string]string) mgresult.Result {
 // @Router	/bind/oauth2 [post][get]
 func BindThirdUser(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "platform") || params["platform"] == "" {
-		return *mgresult.Error(-1, "平台名称不可为空")
+		return mgresult.Error(-1, "平台名称不可为空")
 	}
 	if !utils.Exists(params, "thirdUserId") || params["thirdUserId"] == "" {
-		return *mgresult.Error(-1, "第三方用户编号不可为空")
+		return mgresult.Error(-1, "第三方用户编号不可为空")
 	}
 	return thirdpart.BindThirdUser(params["platform"], params["thirdUserId"], params["userId"], params["mobile"], params["nickName"], params["sex"], params["province"], params["city"], params["country"], params["headImageUrl"])
 }
@@ -95,16 +95,16 @@ func BindThirdUser(params map[string]string) mgresult.Result {
 // @Router	/unbind/oauth2 [post][get]
 func UnBindThirdUser(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "platform") || params["platform"] == "" {
-		return *mgresult.Error(-1, "平台名称不可为空")
+		return mgresult.Error(-1, "平台名称不可为空")
 	}
 	if !utils.Exists(params, "thirdUserId") || params["thirdUserId"] == "" {
-		return *mgresult.Error(-1, "第三方用户编号不可为空")
+		return mgresult.Error(-1, "第三方用户编号不可为空")
 	}
 	if !utils.Exists(params, "userId") || params["userId"] == "" {
-		return *mgresult.Error(-1, "用户编号不可为空")
+		return mgresult.Error(-1, "用户编号不可为空")
 	}
 	if !utils.Exists(params, "appId") || params["appId"] == "" {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	return thirdpart.UnBindThirdUser(params["platform"], params["appId"], params["userId"], params["thirdUserId"])
 }
@@ -123,13 +123,13 @@ func UnBindThirdUser(params map[string]string) mgresult.Result {
 // @Router	/user/oauth2 [post][get]
 func GetThirdUserInfo(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "platform") || params["platform"] == "" {
-		return *mgresult.Error(-1, "平台名称不可为空")
+		return mgresult.Error(-1, "平台名称不可为空")
 	}
 	if !utils.Exists(params, "userId") || params["userId"] == "" {
-		return *mgresult.Error(-1, "用户编号不可为空")
+		return mgresult.Error(-1, "用户编号不可为空")
 	}
 	if !utils.Exists(params, "appId") || params["appId"] == "" {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	return thirdpart.GetThirdUserInfo(params["platform"], params["userId"], params["appId"])
 }

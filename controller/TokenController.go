@@ -22,7 +22,7 @@ import (
 // @Router	/token/auth [post][get]
 func TokenAuthenticate(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "termType") {
-		return *mgresult.Error(-1, "终端类型必传")
+		return mgresult.Error(-1, "终端类型必传")
 	}
 	termType, _ := strconv.Atoi(params["termType"])
 	return service.NewUserService().Authenticate(params["token"], params["appId"], termType)

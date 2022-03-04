@@ -27,10 +27,10 @@ import (
 // @Router	/app/add [post][get]
 func AddApplication(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "appName") {
-		return *mgresult.Error(-1, "应用名称不可为空")
+		return mgresult.Error(-1, "应用名称不可为空")
 	}
 	if !utils.Exists(params, "descript") {
-		return *mgresult.Error(-1, "应用简介不可为空")
+		return mgresult.Error(-1, "应用简介不可为空")
 	}
 	if !utils.Exists(params, "smsSignCode") {
 		params["smsSignCode"] = mgconfig.GetConfigString("goss.sms.signcode")
@@ -42,15 +42,15 @@ func AddApplication(params map[string]string) mgresult.Result {
 		params["smsRegisterTemplate"] = mgconfig.GetConfigString("goss.sms.template.register")
 	}
 	if !utils.Exists(params, "tokenTtl") {
-		return *mgresult.Error(-1, "应用token的有效期不可为空")
+		return mgresult.Error(-1, "应用token的有效期不可为空")
 	}
 	tokenTtl, _ := strconv.Atoi(params["tokenTtl"])
 	if !utils.Exists(params, "maxOnline") {
-		return *mgresult.Error(-1, "应用同时最大在线数不可为空")
+		return mgresult.Error(-1, "应用同时最大在线数不可为空")
 	}
 	maxOnline, _ := strconv.Atoi(params["maxOnline"])
 	if !utils.Exists(params, "termTypes") {
-		return *mgresult.Error(-1, "应用支持的终端类型不可为空")
+		return mgresult.Error(-1, "应用支持的终端类型不可为空")
 	}
 	termTypes := make([]int, 0)
 	utils.FromJSON(params["termTypes"], &termTypes)
@@ -72,7 +72,7 @@ func AddApplication(params map[string]string) mgresult.Result {
 // @Router	/app/get [post][get]
 func GetAppInfo(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "appId") {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	return service.NewAppService().GetAppInfo(params["appId"])
 }
@@ -90,7 +90,7 @@ func GetAppInfo(params map[string]string) mgresult.Result {
 // @Router	/app/update [post][get]
 func UpdateAppInfo(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "appId") {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	return service.NewAppService().UpdateAppInfo(params["appId"], params["appName"], params["descript"])
 }
@@ -107,7 +107,7 @@ func UpdateAppInfo(params map[string]string) mgresult.Result {
 // @Router	/app/key/reset [post][get]
 func ResetAppKey(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "appId") {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	return service.NewAppService().ResetAppKey(params["appId"], params["appKey"])
 }
@@ -123,7 +123,7 @@ func ResetAppKey(params map[string]string) mgresult.Result {
 // @Router	/app/setting/get [post][get]
 func GetAppSettings(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "appId") {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	return service.NewAppService().GetAppSettings(params["appId"])
 }
@@ -146,7 +146,7 @@ func GetAppSettings(params map[string]string) mgresult.Result {
 // @Router	/app/setting/update [post][get]
 func UpdateAppSettings(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "appId") {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	tokenTtl := 0
 	if utils.Exists(params, "tokenTtl") {
@@ -181,10 +181,10 @@ func UpdateAppSettings(params map[string]string) mgresult.Result {
 // @Router	/app/kickrule/set [post][get]
 func SetAppKickRule(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "appId") {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	if !utils.Exists(params, "kickRule") {
-		return *mgresult.Error(-1, "应用互踢类型不可为空")
+		return mgresult.Error(-1, "应用互踢类型不可为空")
 	}
 	kickRule, _ := strconv.Atoi(params["kickRule"])
 	termTypes := make([]int, 0)
@@ -211,10 +211,10 @@ func SetAppKickRule(params map[string]string) mgresult.Result {
 // @Router	/app/termtypegroup/add [post][get]
 func SetTermTypeGroup(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "appId") {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	if !utils.Exists(params, "groupName") {
-		return *mgresult.Error(-1, "互踢组名称不可为空")
+		return mgresult.Error(-1, "互踢组名称不可为空")
 	}
 	termTypes := make([]int, 0)
 	if utils.Exists(params, "termTypes") {
@@ -235,10 +235,10 @@ func SetTermTypeGroup(params map[string]string) mgresult.Result {
 // @Router	/app/termtypegroup/del [post][get]
 func DeleteTermTypeGroup(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "appId") {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	if !utils.Exists(params, "termTypeGroup") {
-		return *mgresult.Error(-1, "互踢组名称不可为空")
+		return mgresult.Error(-1, "互踢组名称不可为空")
 	}
 	return service.NewAppService().DeleteTermTypeGroup(params["appId"], params["termTypeGroup"])
 }
@@ -254,7 +254,7 @@ func DeleteTermTypeGroup(params map[string]string) mgresult.Result {
 // @Router	/app/termtypegroup/list [post][get]
 func ListAppTermTypeGroups(params map[string]string) mgresult.Result {
 	if !utils.Exists(params, "appId") {
-		return *mgresult.Error(-1, "应用编号不可为空")
+		return mgresult.Error(-1, "应用编号不可为空")
 	}
 	return service.NewAppService().ListAppTermTypeGroups(params["appId"])
 }

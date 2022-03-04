@@ -23,28 +23,28 @@ func verifySign(ctx *gin.Context) {
 	}
 	params := utils.GinParamMap(ctx)
 	if !utils.Exists(params, "appId") {
-		ctx.AbortWithStatusJSON(200, *mgresult.Error(-1, "应用编号不可为空"))
+		ctx.AbortWithStatusJSON(200, mgresult.Error(-1, "应用编号不可为空"))
 		return
 	}
 	appSettings, err := mongo.GetAppSettings(params["appId"])
 	if err != nil {
-		ctx.AbortWithStatusJSON(200, *mgresult.Error(-1, err.Error()))
+		ctx.AbortWithStatusJSON(200, mgresult.Error(-1, err.Error()))
 		return
 	}
 	if appSettings.AppId == "" {
-		ctx.AbortWithStatusJSON(200, *mgresult.Error(-1, "应用代码不正确"))
+		ctx.AbortWithStatusJSON(200, mgresult.Error(-1, "应用代码不正确"))
 		return
 	}
 	if appSettings.VerifySign == false {
 		return
 	}
 	if !utils.Exists(params, "sign") {
-		ctx.AbortWithStatusJSON(200, *mgresult.Error(-1, "应用签名不可为空"))
+		ctx.AbortWithStatusJSON(200, mgresult.Error(-1, "应用签名不可为空"))
 		return
 	}
 	appInfo, err := mysql.GetAppInfoByAppId(params["appId"])
 	if err != nil {
-		ctx.AbortWithStatusJSON(200, *mgresult.Error(-1, err.Error()))
+		ctx.AbortWithStatusJSON(200, mgresult.Error(-1, err.Error()))
 		return
 	}
 	sortmap := treemap.NewWithStringComparator()
@@ -61,6 +61,6 @@ func verifySign(ctx *gin.Context) {
 	sign := utils.MD5Encode(querystr)
 	logs.Debug("签名明文:{},结果:{}", querystr, sign)
 	if params["sign"] != sign {
-		ctx.AbortWithStatusJSON(200, *mgresult.Error(-1, "应用签名不正确"))
+		ctx.AbortWithStatusJSON(200, mgresult.Error(-1, "应用签名不正确"))
 	}
 }
